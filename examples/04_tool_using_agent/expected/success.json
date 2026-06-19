@@ -1,0 +1,22 @@
+{
+  "status": "succeeded",
+  "output": {
+    "tool_results": {
+      "get_order_status": {
+        "order_id": "ORD-001",
+        "status": "shipped",
+        "customer_id": "CUST-042",
+        "items": [
+          {"item_id": "ITM-001", "name": "Widget A", "quantity": 2, "price": 19.99},
+          {"item_id": "ITM-002", "name": "Gadget B", "quantity": 1, "price": 49.99}
+        ]
+      }
+    },
+    "final_answer": "Order ORD-001 is in 'shipped' status. It contains 2 items and was confirmed on 2026-06-10."
+  },
+  "metrics": {
+    "model_calls": 2,
+    "tool_calls": 1,
+    "iterations": 2
+  }
+}

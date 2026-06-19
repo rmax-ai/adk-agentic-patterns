@@ -1,0 +1,5 @@
+{
+  "status": "failed",
+  "output": null,
+  "failure_reason": "Tool 'non_existent_tool' is not available"
+}

@@ -1,0 +1,13 @@
+{
+  "pattern": "parallel-fanout-gather",
+  "scenario": "fail_fast",
+  "status": "failed",
+  "output": null,
+  "state_snapshot": {},
+  "metrics": {
+    "model_calls": 0.0,
+    "tool_calls": 0.0,
+    "iterations": 0.0
+  },
+  "failure_reason": "Security evaluation failed: no fixture available"
+}

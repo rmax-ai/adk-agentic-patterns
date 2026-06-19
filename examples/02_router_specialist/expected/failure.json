@@ -1,0 +1,20 @@
+{
+  "status": "succeeded",
+  "output": {
+    "route_verdict": {
+      "route": "general",
+      "confidence": 0.35,
+      "reasoning": "Customer query does not match any known category"
+    },
+    "specialist_output": {
+      "specialist": "general",
+      "response": "Thank you for your inquiry. I've forwarded your request to the appropriate team for review. A representative will follow up.",
+      "tools_used": []
+    }
+  },
+  "metrics": {
+    "model_calls": 1,
+    "tool_calls": 0,
+    "iterations": 0
+  }
+}

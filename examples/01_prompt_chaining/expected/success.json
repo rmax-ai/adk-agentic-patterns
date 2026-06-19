@@ -1,0 +1,41 @@
+{
+    "pattern": "prompt-chaining",
+    "scenario": "security_breach",
+    "status": "succeeded",
+    "output": {
+        "stage1_facts": {
+            "product": "API Gateway",
+            "issue_type": "security_breach",
+            "customer_tier": "enterprise",
+            "description": "An unauthorized third party accessed the API Gateway admin panel for approximately 47 minutes between 03:14 UTC and 04:01 UTC. Customer API keys for 3 enterprise tenants may have been exposed.",
+            "timestamp": "2026-06-19T03:14:00Z"
+        },
+        "stage2_severity": {
+            "severity": "critical",
+            "impact_score": 0.92,
+            "affected_users_estimate": 15000,
+            "business_impact": "Enterprise customer data potentially exposed. Compliance obligations under SOC2 and GDPR may be triggered. Long-term reputational damage if API keys were exfiltrated."
+        },
+        "stage3_summary": {
+            "summary": "A critical security breach in the API Gateway admin panel exposed enterprise customer API keys for 47 minutes. SOC2 and GDPR compliance reporting is required. All affected tenants have been notified and keys rotated.",
+            "recommended_actions": [
+                "Rotate all exposed API keys immediately",
+                "Enable MFA on admin panel access",
+                "Conduct full security audit of access logs",
+                "Notify affected enterprise customers with incident report"
+            ],
+            "notified_stakeholders": [
+                "Security Team",
+                "Enterprise Customer Success",
+                "VP of Engineering",
+                "Compliance Officer"
+            ],
+            "requires_escalation": true
+        }
+    },
+    "metrics": {
+        "model_calls": 3.0,
+        "tool_calls": 0.0,
+        "iterations": 0.0
+    }
+}

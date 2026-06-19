@@ -1,0 +1,20 @@
+{
+  "status": "succeeded",
+  "output": {
+    "route_verdict": {
+      "route": "billing",
+      "confidence": 0.92,
+      "reasoning": "Customer mentions overcharge and invoice dispute"
+    },
+    "specialist_output": {
+      "specialist": "billing",
+      "response": "I've reviewed your invoice and processed a refund for the overcharge. You should see the credit within 3\u20135 business days.",
+      "tools_used": ["lookup_invoice", "process_refund"]
+    }
+  },
+  "metrics": {
+    "model_calls": 1,
+    "tool_calls": 2,
+    "iterations": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "pattern": "prompt-chaining",
+    "scenario": "malformed_facts",
+    "status": "failed",
+    "output": {
+        "stage1_facts": "validation_failed"
+    },
+    "metrics": {
+        "model_calls": 1.0,
+        "tool_calls": 0.0,
+        "iterations": 0.0
+    },
+    "failure_reason": "Stage 1: schema validation failed — ..."
+}
