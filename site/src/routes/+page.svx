@@ -1,0 +1,108 @@
+---
+title: ADK Agentic Design Patterns
+description: An executable catalogue of 23 agentic design patterns using Google Agent Development Kit (ADK) — tested, documented, locally runnable.
+---
+
+ADK Agentic Patterns is a **tested, documented, locally-runnable reference implementation** demonstrating major design patterns for building reliable agentic systems with [Google ADK](https://github.com/google/adk-python).
+
+**23 patterns.** **Offline-first.** **~280 tests.**
+
+---
+
+## Why Agent Patterns Are Control-Flow Patterns
+
+Agentic design patterns are **not prompt tricks**. They are control-flow primitives — how you compose model calls, tools, state, and human input into reliable, governable workflows.
+
+Every pattern here answers:
+- What problem does it solve?
+- What is its canonical control flow?
+- Which parts are deterministic and which are delegated to a model?
+- How does execution terminate? What happens when a tool fails?
+- How is the pattern tested?
+
+---
+
+## Quick Install
+
+```bash
+git clone https://github.com/rmax-ai/adk-agentic-patterns.git
+cd adk-agentic-patterns
+uv sync --extra dev
+```
+
+## Run Offline (No Credentials Required)
+
+```bash
+uv run adk-patterns list
+uv run adk-patterns describe prompt-chaining
+uv run adk-patterns matrix
+uv run pytest examples/00_single_model_call/test_example.py -v
+```
+
+## Optional Gemini Execution
+
+```bash
+PATTERNS_EXECUTION_MODE=live GOOGLE_API_KEY=... uv run python -m examples.01_prompt_chaining.run
+```
+
+---
+
+## Pattern Catalogue
+
+23 patterns ordered by autonomy escalation:
+
+| Level | Patterns |
+|-------|----------|
+| **L0 — Deterministic** | Single Structured Model Call |
+| **L1 — Fixed Flow** | Prompt Chaining, Retry & Fallback, Observability |
+| **L2 — Conditional Routing** | Router-Specialist, Parallel Fan-Out, Guardrails, Budget Routing |
+| **L3 — Tool-Augmented** | Tool-Using Agent, Sequential Specialists, Human Approval, MCP Gateway |
+| **L4 — Iterative Refinement** | Evaluator-Optimizer, Bounded Loop, Agent Handoff, Memory Partitioning, Agentic RAG |
+| **L5 — Adaptive** | ReAct Loop, Shared Workspace, Durable SAGA, Composed Reference System |
+| **L6 — Planning** | Planner-Executor, Supervisor-Worker |
+| **L7 — Dynamic** | Dynamic Workflow |
+
+[Browse all patterns →](patterns/)
+
+---
+
+## Architecture Selection Decision Tree
+
+```text
+Can deterministic code solve the task?
+├── yes → use deterministic code
+└── no
+    Can one structured model call solve it?
+    ├── yes → use one model call
+    └── no
+        Is the flow fixed?
+        ├── yes → sequential or parallel workflow
+        └── no
+            Is the choice among known specialists?
+            ├── yes → router-specialist
+            └── no
+                Does execution require iterative refinement?
+                ├── yes → bounded evaluator/loop
+                └── no
+                    Does the task require adapting a plan to intermediate results?
+                    ├── yes → planner-executor or dynamic workflow
+                    └── no → reconsider task formulation
+```
+
+## Repository Tour
+
+| Directory | Contents |
+|-----------|----------|
+| `src/adk_patterns/` | Shared contracts, scripted model, CLI, mock services, telemetry |
+| `examples/00_*` through `23_*` | 23 self-contained pattern implementations |
+| `tests/` | Unit, integration, contract, failure-injection, and architecture tests |
+| `docs/` | Architecture selection guide, pattern comparison, state management |
+| `scripts/` | Verification and benchmark scripts |
+
+## Security Disclaimer
+
+The mock services in this repository are **educational tools** — they are labeled as such and do NOT implement production-grade cryptography, authentication, or secure authorization. Each pattern's README includes a "From educational example to production" section covering required hardening.
+
+## License
+
+MIT — Max Espinoza

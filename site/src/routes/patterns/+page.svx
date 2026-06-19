@@ -1,0 +1,163 @@
+---
+title: Pattern Catalogue
+---
+
+# Pattern Catalogue
+
+23 executable patterns ordered by autonomy level. Each pattern is a self-contained example with its own tests, fixtures, and documentation.
+
+---
+
+## L0 — Deterministic Baseline
+
+### 00: Single Structured Model Call
+Classify a support request into a typed category with **one model invocation**. No tools, no loops — the simplest possible baseline. Establishes typed contracts as the foundation.
+
+**Use for:** Classification, extraction, simple transformation. **Avoid for:** Multi-step reasoning, tool use.
+
+### 01: Prompt Chaining
+Transform a raw incident report through 3 sequential stages (facts → severity → summary) with **Pydantic schema validation between each stage**. Downstream execution stops when validation fails.
+
+**Use for:** Document processing pipelines, multi-stage extraction. **Avoid for:** Independent steps, non-linear flows.
+
+---
+
+## L1 — Fixed Flow
+
+### 18: Retry, Fallback, and Recovery
+Retrieve account data from an unreliable service with **bounded exponential backoff**, deterministic jitter, circuit breaker, fallback cache, and dead-letter recording. Retries never invoke the LLM unnecessarily.
+
+**Use for:** Unreliable service calls, network resilience. **Avoid for:** Guaranteed services, real-time hard deadlines.
+
+### 22: Observability and Evaluation
+Instrument a multi-step agent workflow with **trace IDs, span hierarchies**, model-call spans, tool-call spans, and deterministic evaluators for task completion, schema validity, and forbidden-tool usage.
+
+**Use for:** Workflow monitoring, quality assurance. **Avoid for:** Single-step workflows, ad-hoc exploration.
+
+---
+
+## L2 — Conditional Routing
+
+### 02: Router-Specialist
+Route customer requests to billing, account, or technical specialists with **typed routing verdicts** and confidence thresholds. Both model-driven and rule-driven router variants. Isolated tool sets per specialist.
+
+**Use for:** Customer support triage, specialist dispatch. **Avoid for:** Single domain, fixed flows.
+
+### 03: Parallel Fan-Out/Gather
+Evaluate a vendor simultaneously for **security, legal, operational, and financial** concerns using asyncio.gather. Configurable fail-fast vs partial-result behavior. Unique output key per branch.
+
+**Use for:** Multi-perspective evaluation, independent parallel checks. **Avoid for:** Sequential dependencies, shared mutable state.
+
+### 17: Guardrails and Policy Gate
+Three-layer defense: **pre-model input policy**, pre-tool authorization, post-tool output policy. Deterministic keyword filters before model-based checks. Fail-closed for writes, fail-open for safe reads.
+
+**Use for:** Safety filtering, authorization enforcement. **Avoid for:** Fully trusted inputs, no external side effects.
+
+### 21: Budget-Aware Model Routing
+Route requests to **three model tiers** (cheap/medium/expensive) based on complexity classification. Budget exhaustion triggers fallback to cheaper models. Validation failure triggers escalation (max 2).
+
+**Use for:** Cost optimization, tiered model serving. **Avoid for:** Uniform complexity, single model tier.
+
+---
+
+## L3 — Tool-Augmented
+
+### 04: Tool-Using Agent
+Inspect an order using **mocked inventory, shipment, and customer tools**. Typed tool arguments, tool descriptions for reliable selection, audit trail on every invocation. Read-only tools.
+
+**Use for:** Read-only system queries, data aggregation. **Avoid for:** Write operations without approval.
+
+### 09: Sequential Specialists
+Process an insurance claim through **extraction → eligibility → fraud screening → explanation**. Each specialist has one responsibility with typed output contracts. Pipeline stops on ineligibility or fraud detection.
+
+**Use for:** Claim processing, multi-stage review. **Avoid for:** Independent steps, simple single-agent tasks.
+
+### 13: Human Approval Gate
+Agent proposes a refund but **cannot execute without human approval**. Workflow suspends in pending state, resumes via approve/reject/timeout/amend paths. Agent cannot self-approve. Idempotent resume.
+
+**Use for:** Financial operations, high-risk actions. **Avoid for:** Low-risk read operations, fully automated systems.
+
+### 16: MCP Tool Gateway
+Expose mocked ticketing and knowledge-search through a **local in-process MCP server** consumed by an ADK agent. Tool discovery, allowlisting, timeout handling. No remote dependency.
+
+**Use for:** Tool interoperability, MCP integration. **Avoid for:** Direct tool integration when simpler.
+
+---
+
+## L4 — Iterative Refinement
+
+### 07: Evaluator-Optimizer
+Generate and iteratively improve a technical proposal against a **typed rubric**. Maker and checker are logically separate. Deterministic quality threshold (0.8). No-progress detection stops early.
+
+**Use for:** Content refinement, quality improvement loops. **Avoid for:** One-shot tasks, no quality rubric.
+
+### 08: Bounded Loop Agent
+Draft and validate a compliance report until **all required sections are present**. Explicit max_iterations, state keys for draft/criticism/score. Returns partial result with BUDGET_EXHAUSTED on non-convergence.
+
+**Use for:** Iterative refinement, compliance validation. **Avoid for:** Single-pass tasks.
+
+### 11: Agent Handoff
+Support agent transfers a conversation to a refund specialist. **Only necessary context is preserved.** Receiving agent has narrower permissions. Handoff audit record. Rejected handoff fallback.
+
+**Use for:** Escalation workflows, permission-scoped delegation. **Avoid for:** Single agent sufficient, stateless interactions.
+
+### 14: Memory Partitioning
+Personal task assistant with **four distinct memory stores**: working, session, episodic, user-profile. Separate interfaces, explicit retention policies, TTL-based eviction. Confidence-thresholded writes. Memory poisoning protection.
+
+**Use for:** Personal assistants, long-running conversations. **Avoid for:** Stateless tasks, single sessions.
+
+### 15: Agentic RAG
+Answer multi-hop questions over a **local document corpus** with iterative query refinement, evidence ledger, citation validation, and unsupported-claim rejection. Compare with single-pass RAG baseline.
+
+**Use for:** Multi-hop QA, document-grounded answers. **Avoid for:** Single-hop queries, simple lookups.
+
+---
+
+## L5 — Adaptive
+
+### 05: ReAct Agent Loop
+Diagnose a fictional service incident by **dynamically selecting read-only tools** (metrics, logs, deployment history). Maximum step budget. Repeated-action detection. Observable state — no raw chain-of-thought exposure.
+
+**Use for:** Incident diagnosis, exploratory analysis. **Avoid for:** Fixed procedures, deterministic paths.
+
+### 12: Shared Workspace / Blackboard
+Multiple research workers contribute claims to an **append-only shared evidence board**. Versioned entries, author identity, optimistic locking. Synthesizer reads accepted claims only. *Shared workspaces increase coordination complexity.*
+
+**Use for:** Collaborative research, evidence gathering. **Avoid for:** Simple coordination, single writer.
+
+### 19: Durable SAGA Workflow
+Mocked travel booking with **append-only event log**, checkpoint after every step, idempotency keys, simulated crash recovery, compensating actions in reverse order, and human escalation when rollback fails.
+
+**Use for:** Multi-service transactions, booking systems. **Avoid for:** Atomic operations, simple single-service calls.
+
+### 23: Composed Production Reference System
+**Capstone pattern** composing 9 sub-patterns into one regulated customer-support workflow: policy gate → router → RAG → tools → evaluator → human approval → event log → observability → retry. Every write receives an idempotency key. No specialist receives tools outside its domain.
+
+**Use for:** Production reference, regulated workflows. **Avoid for:** Learning individual patterns, simple applications.
+
+---
+
+## L6 — Planning
+
+### 06: Planner-Executor
+Plan and execute a small conference setup. Planner emits a **typed ExecutionPlan** with task dependencies. Executor runs scoped tools but cannot change the plan without a formal replan event. Plan validation before execution.
+
+**Use for:** Complex multi-step tasks, project execution. **Avoid for:** Simple tasks, fixed workflows.
+
+### 10: Supervisor-Worker
+Supervisor decomposes a product-launch review into specialist tasks with a **typed task ledger**. Workers cannot modify unrelated tasks. Worker registry with explicit assignment records. Bounded delegation depth.
+
+**Use for:** Complex decompositions, multi-specialist coordination. **Avoid for:** Simple tasks, single specialist.
+
+---
+
+## L7 — Dynamic
+
+### 20: Dynamic Workflow
+Process a data-quality incident where execution branches depend on discovered conditions. **Programmatic conditional flow** — no model-driven routing where ordinary code can decide. Bounded recursion. Explicit state transitions recorded.
+
+**Use for:** Data quality pipelines, conditional workflows. **Avoid for:** Fixed flows, simple branching.
+
+---
+
+[← Back to home](/)
