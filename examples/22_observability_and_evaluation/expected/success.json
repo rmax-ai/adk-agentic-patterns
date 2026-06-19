@@ -1,0 +1,69 @@
+{
+  "pattern": "observability-and-evaluation",
+  "scenario": "success",
+  "status": "succeeded",
+  "output": {
+    "scenario": "success",
+    "request": "What's the weather in London?",
+    "classification": "weather",
+    "selected_tool": "lookup_tool",
+    "tool_name": "lookup_tool",
+    "arguments": {
+      "query": "weather in London",
+      "type": "weather"
+    },
+    "args_valid": true,
+    "answer": "The weather in London is 15°C with light rain.",
+    "answer_valid": true,
+    "success": true,
+    "forbidden_tool_used": false
+  },
+  "evaluation_results": {
+    "task_completion": {
+      "metric": "task_completion",
+      "passed": true,
+      "details": "1/1 root spans OK"
+    },
+    "maximum_steps": {
+      "metric": "maximum_steps",
+      "passed": true,
+      "details": "tool_calls=1, model_calls=3, max=3"
+    },
+    "schema_validity": {
+      "metric": "schema_validity",
+      "passed": true,
+      "details": "3/3 validations OK"
+    },
+    "forbidden_tool_usage": {
+      "metric": "forbidden_tool_usage",
+      "passed": true,
+      "details": "none"
+    },
+    "state_ownership": {
+      "metric": "state_ownership",
+      "passed": true,
+      "details": "none"
+    },
+    "argument_schema_alignment": {
+      "metric": "argument_schema_alignment",
+      "passed": true,
+      "details": "1/1 tool spans have aligned args"
+    },
+    "citation_correctness": {
+      "metric": "citation_correctness",
+      "passed": true,
+      "details": "1/1 tool spans have citation info"
+    }
+  },
+  "synthetic_metrics": {
+    "total_prompt_tokens": 55,
+    "total_completion_tokens": 65,
+    "total_tokens": 120,
+    "model_call_count": 3,
+    "tool_call_count": 1,
+    "cost_per_success": 1.2,
+    "groundedness_score": 1.0,
+    "schema_validity_rate": 1.0,
+    "failure_category": "none"
+  }
+}

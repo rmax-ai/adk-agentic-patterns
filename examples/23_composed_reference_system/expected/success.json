@@ -1,0 +1,98 @@
+{
+  "pattern": "composed_reference_system",
+  "scenario": "read_only_inquiry",
+  "status": "succeeded",
+  "output": {
+    "state": {
+      "request": "What is my account status and recent transactions?",
+      "route": "account",
+      "docs": [
+        {
+          "doc_id": "doc_account_policy",
+          "content": "Account policy: Premium accounts include priority support, 5 user seats, and 99.9% uptime SLA. Standard accounts include email support and 2 user seats.",
+          "score": 0.95
+        }
+      ],
+      "tool_results": [
+        {
+          "tool": "get_account",
+          "result": {
+            "customer_id": "CUST-001",
+            "name": "Alice",
+            "email": "alice@example.com",
+            "plan": "premium",
+            "status": "active"
+          }
+        },
+        {
+          "tool": "check_transactions",
+          "result": {
+            "customer_id": "CUST-001",
+            "transactions": [
+              {"id": "TXN-001", "amount": 149.99, "date": "2025-01-15", "description": "Monthly subscription"},
+              {"id": "TXN-002", "amount": 29.99, "date": "2025-02-15", "description": "Add-on service"}
+            ],
+            "count": 2
+          }
+        }
+      ],
+      "answer": "Account inquiry handled. Customer: Alice, Plan: premium, Recent transactions: 2. No approval required for read-only inquiries.",
+      "evaluator_scores": null,
+      "approval": null,
+      "refund_result": null
+    },
+    "spans": [
+      {"name": "policy_gate", "duration_ms": 0.0},
+      {"name": "router", "duration_ms": 0.0},
+      {"name": "rag", "duration_ms": 0.0},
+      {"name": "tool_agent", "duration_ms": 0.0},
+      {"name": "answer_gen", "duration_ms": 0.0}
+    ],
+    "event_log_count": 9,
+    "trace_id": "hex_trace_id"
+  },
+  "state_snapshot": {
+    "request": "What is my account status and recent transactions?",
+    "route": "account",
+    "docs": [
+      {
+        "doc_id": "doc_account_policy",
+        "content": "Account policy: Premium accounts include priority support, 5 user seats, and 99.9% uptime SLA. Standard accounts include email support and 2 user seats.",
+        "score": 0.95
+      }
+    ],
+    "tool_results": [
+      {
+        "tool": "get_account",
+        "result": {
+          "customer_id": "CUST-001",
+          "name": "Alice",
+          "email": "alice@example.com",
+          "plan": "premium",
+          "status": "active"
+        }
+      },
+      {
+        "tool": "check_transactions",
+        "result": {
+          "customer_id": "CUST-001",
+          "transactions": [
+            {"id": "TXN-001", "amount": 149.99, "date": "2025-01-15", "description": "Monthly subscription"},
+            {"id": "TXN-002", "amount": 29.99, "date": "2025-02-15", "description": "Add-on service"}
+          ],
+          "count": 2
+        }
+      }
+    ],
+    "answer": "Account inquiry handled. Customer: Alice, Plan: premium, Recent transactions: 2. No approval required for read-only inquiries."
+  },
+  "metrics": {
+    "model_calls": 0.0,
+    "tool_calls": 2.0,
+    "iterations": 4.0,
+    "synthetic_tokens": 0.0,
+    "wall_clock_ms": 0.0
+  },
+  "failure_reason": null,
+  "execution_mode": "offline"
+}

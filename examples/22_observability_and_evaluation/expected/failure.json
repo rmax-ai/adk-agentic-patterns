@@ -1,0 +1,69 @@
+{
+  "pattern": "observability-and-evaluation",
+  "scenario": "failure",
+  "status": "failed",
+  "output": {
+    "scenario": "failure",
+    "request": "",
+    "classification": "weather",
+    "selected_tool": "lookup_tool",
+    "tool_name": "lookup_tool",
+    "arguments": {
+      "query": "weather in London",
+      "type": "weather"
+    },
+    "args_valid": true,
+    "answer": "",
+    "answer_valid": false,
+    "success": false,
+    "forbidden_tool_used": false
+  },
+  "evaluation_results": {
+    "task_completion": {
+      "metric": "task_completion",
+      "passed": true,
+      "details": "1/1 root spans OK"
+    },
+    "maximum_steps": {
+      "metric": "maximum_steps",
+      "passed": true,
+      "details": "tool_calls=1, model_calls=3, max=3"
+    },
+    "schema_validity": {
+      "metric": "schema_validity",
+      "passed": false,
+      "details": "2/3 validations OK"
+    },
+    "forbidden_tool_usage": {
+      "metric": "forbidden_tool_usage",
+      "passed": true,
+      "details": "none"
+    },
+    "state_ownership": {
+      "metric": "state_ownership",
+      "passed": true,
+      "details": "none"
+    },
+    "argument_schema_alignment": {
+      "metric": "argument_schema_alignment",
+      "passed": true,
+      "details": "1/1 tool spans have aligned args"
+    },
+    "citation_correctness": {
+      "metric": "citation_correctness",
+      "passed": true,
+      "details": "1/1 tool spans have citation info"
+    }
+  },
+  "synthetic_metrics": {
+    "total_prompt_tokens": 55,
+    "total_completion_tokens": 65,
+    "total_tokens": 120,
+    "model_call_count": 3,
+    "tool_call_count": 1,
+    "cost_per_success": 0.0,
+    "groundedness_score": 0.0,
+    "schema_validity_rate": 0.0,
+    "failure_category": "task_failed"
+  }
+}

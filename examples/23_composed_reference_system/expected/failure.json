@@ -1,0 +1,90 @@
+{
+  "pattern": "composed_reference_system",
+  "scenario": "refund_rejected",
+  "status": "succeeded",
+  "output": {
+    "state": {
+      "request": "I need a refund for my recent purchase.",
+      "route": "billing",
+      "docs": [
+        {
+          "doc_id": "doc_refund_policy",
+          "content": "Refund policy: Full refunds are available within 30 days of purchase. Partial refunds may be issued after 30 days at management discretion.",
+          "score": 0.96
+        }
+      ],
+      "tool_results": [
+        {
+          "tool": "lookup_invoice",
+          "result": {
+            "invoice_id": "INV-001",
+            "amount": 149.99,
+            "status": "paid",
+            "overcharged": true
+          }
+        }
+      ],
+      "answer": "Billing inquiry processed. Invoice INV-001 shows amount $149.99. Status: paid. Evaluator verification required before completion.",
+      "evaluator_scores": {
+        "correctness": 0.80,
+        "completeness": 0.75,
+        "safety": 0.90,
+        "overall": 0.82,
+        "feedback": ["Correctly identified refund request", "Evaluator passed", "Approval gate will decide"],
+        "passed": true
+      },
+      "approval": {
+        "approved": false,
+        "reviewer": "auto-rejecter",
+        "note": "Policy violation",
+        "timestamp": "2025-01-01T00:00:00Z"
+      },
+      "refund_result": {
+        "success": false,
+        "error": "Refund rejected by approval gate",
+        "reason": "Policy violation"
+      },
+      "event_log": [
+        {"phase": "policy_gate", "action": "start", "details": {}},
+        {"phase": "policy_gate", "action": "passed", "details": {}},
+        {"phase": "router", "action": "start", "details": {}},
+        {"phase": "router", "action": "classified", "details": {"route": "billing"}},
+        {"phase": "rag", "action": "start", "details": {}},
+        {"phase": "rag", "action": "retrieved", "details": {"doc_count": 2}},
+        {"phase": "tool_agent", "action": "start", "details": {}},
+        {"phase": "tool_agent", "action": "tools_executed", "details": {"tool_count": 1}},
+        {"phase": "answer_gen", "action": "start", "details": {}},
+        {"phase": "answer_gen", "action": "completed", "details": {}},
+        {"phase": "evaluator", "action": "start", "details": {}},
+        {"phase": "evaluator", "action": "completed", "details": {"overall": 0.82, "passed": true}},
+        {"phase": "approval_gate", "action": "start", "details": {}},
+        {"phase": "approval_gate", "action": "decision", "details": {"approved": false}},
+        {"phase": "approval_gate", "action": "refund_rejected", "details": {"reason": "Policy violation"}}
+      ]
+    },
+    "spans": [
+      {"name": "policy_gate", "duration_ms": 0.0},
+      {"name": "router", "duration_ms": 0.0},
+      {"name": "rag", "duration_ms": 0.0},
+      {"name": "tool_agent", "duration_ms": 0.0},
+      {"name": "answer_gen", "duration_ms": 0.0},
+      {"name": "evaluator", "duration_ms": 0.0},
+      {"name": "approval_gate", "duration_ms": 0.0}
+    ],
+    "event_log_count": 15,
+    "trace_id": "hex_trace_id"
+  },
+  "state_snapshot": {
+    "request": "I need a refund for my recent purchase.",
+    "route": "billing"
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 3.0,
+    "iterations": 6.0,
+    "synthetic_tokens": 50.0,
+    "wall_clock_ms": 0.0
+  },
+  "failure_reason": null,
+  "execution_mode": "offline"
+}
