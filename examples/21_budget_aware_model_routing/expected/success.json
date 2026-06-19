@@ -1,0 +1,25 @@
+{
+  "pattern": "budget-aware-model-routing",
+  "scenario": "simple",
+  "status": "succeeded",
+  "output": {
+    "routing_decision": {
+      "tier": "cheap",
+      "reason": "Initial route based on simple classification",
+      "estimated_cost": 0.001,
+      "escalation_count": 0
+    },
+    "model_tier": "cheap",
+    "cost": 0.001,
+    "result": "What's the weather like?",
+    "cost_per_success": 0.001,
+    "success": true
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 0.0,
+    "iterations": 0.0,
+    "synthetic_tokens": 100.0,
+    "cost_per_success": 0.001
+  }
+}

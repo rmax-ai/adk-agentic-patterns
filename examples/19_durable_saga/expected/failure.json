@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "output": {
+    "saga_status": "compensated",
+    "checkpoints": {
+      "reserve_flight": { "status": "completed" },
+      "reserve_hotel": { "status": "completed" },
+      "charge_payment": { "status": "completed" }
+    },
+    "failure_step": "issue_confirmation",
+    "compensation_result": {
+      "escalation_required": false,
+      "compensation_results": [
+        { "step": "issue_confirmation", "action": "cancel_confirmation" },
+        { "step": "charge_payment", "action": "refund_payment" },
+        { "step": "reserve_hotel", "action": "release_hotel" },
+        { "step": "reserve_flight", "action": "release_flight" }
+      ]
+    }
+  },
+  "failure_reason": "Saga step issue_confirmation failed",
+  "metrics": {
+    "model_calls": 0,
+    "tool_calls": 7
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "pattern": "retry-fallback-recovery",
+  "scenario": "success",
+  "status": "succeeded",
+  "state_snapshot": {
+    "account_data": {
+      "account_id": "ACC-001",
+      "name": "Alice Smith",
+      "balance": 2500.0
+    },
+    "retry_count": 0,
+    "circuit_state": "closed",
+    "dead_letter": []
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 0.0,
+    "iterations": 1.0
+  },
+  "failure_reason": null
+}

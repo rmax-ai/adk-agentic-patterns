@@ -1,0 +1,5 @@
+{
+  "status": "failed",
+  "output": null,
+  "failure_reason": "MCP server returned malformed response with error code -32700"
+}

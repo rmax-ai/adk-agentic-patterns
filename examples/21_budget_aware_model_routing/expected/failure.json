@@ -1,0 +1,23 @@
+{
+  "pattern": "budget-aware-model-routing",
+  "scenario": "validation_failure",
+  "status": "failed",
+  "output": {
+    "routing_decision": {
+      "tier": "expensive",
+      "reason": "Initial route based on complex classification",
+      "estimated_cost": 0.020,
+      "escalation_count": 2
+    },
+    "model_tier": "expensive",
+    "cost": 0.026,
+    "result": ""
+  },
+  "metrics": {
+    "model_calls": 3.0,
+    "tool_calls": 0.0,
+    "iterations": 0.0,
+    "synthetic_tokens": 300.0,
+    "cost_per_success": 0.0
+  }
+}

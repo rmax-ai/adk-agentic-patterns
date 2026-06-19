@@ -1,0 +1,38 @@
+{
+    "pattern": "guardrails-policy-gate",
+    "scenario": "allow_safe_request",
+    "status": "succeeded",
+    "output": {
+        "policy_verdicts": [
+            {
+                "phase": "pre_model",
+                "verdict": "allow",
+                "reason_code": "no_keywords_matched",
+                "detail": "Query passed pre-model input policy"
+            }
+        ],
+        "blocked_requests": [],
+        "authorized_actions": [
+            {
+                "tool": "process_payment",
+                "verdict": "allow"
+            }
+        ],
+        "tool_results": {
+            "process_payment": {
+                "payment_id": "PAY-001",
+                "amount": 50.0,
+                "recipient": "merchant_abc",
+                "currency": "USD",
+                "status": "completed"
+            }
+        },
+        "final_answer": "Payment of $50.00 to merchant_abc processed successfully. Payment ID: PAY-001.",
+        "degraded": false
+    },
+    "metrics": {
+        "model_calls": 2.0,
+        "tool_calls": 1.0,
+        "iterations": 2.0
+    }
+}

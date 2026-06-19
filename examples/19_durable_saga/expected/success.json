@@ -1,0 +1,17 @@
+{
+  "status": "succeeded",
+  "output": {
+    "saga_status": "completed",
+    "checkpoints": {
+      "reserve_flight": { "status": "completed" },
+      "reserve_hotel": { "status": "completed" },
+      "charge_payment": { "status": "completed" },
+      "issue_confirmation": { "status": "completed" }
+    },
+    "final_answer": "Travel booking complete! Flight AA123 reserved, hotel Hilton Downtown reserved, payment of $599.99 charged, and confirmation issued."
+  },
+  "metrics": {
+    "model_calls": 0,
+    "tool_calls": 4
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "pattern": "agentic-rag",
+    "scenario": "multi_hop",
+    "status": "succeeded",
+    "state_keys": {
+        "retrieved_docs": ["doc_framework", "doc_database"],
+        "answer": "present",
+        "citations": "present",
+        "evidence_ledger": "present",
+        "retrieval_round": ">=1, <=3",
+        "supported": "true"
+    },
+    "expected_content": [
+        "python",
+        "fastapi",
+        "postgresql"
+    ]
+}

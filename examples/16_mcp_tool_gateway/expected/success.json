@@ -1,0 +1,51 @@
+{
+  "status": "succeeded",
+  "output": {
+    "mcp_tools": [
+      {
+        "name": "mcp:ticketing/create_ticket",
+        "description": "Create a new support ticket with title, description, and priority.",
+        "version": "1.0.0"
+      },
+      {
+        "name": "mcp:ticketing/get_ticket",
+        "description": "Retrieve a support ticket by its ticket ID.",
+        "version": "1.0.0"
+      },
+      {
+        "name": "mcp:ticketing/list_tickets",
+        "description": "List support tickets, optionally filtered by status.",
+        "version": "1.0.0"
+      },
+      {
+        "name": "mcp:knowledge/search_docs",
+        "description": "Search knowledge base documents by query string.",
+        "version": "1.0.0"
+      },
+      {
+        "name": "mcp:knowledge/get_article",
+        "description": "Retrieve a knowledge base article by article ID.",
+        "version": "1.0.0"
+      }
+    ],
+    "mcp_results": {
+      "mcp:ticketing/create_ticket": {
+        "result": {
+          "ticket_id": "TKT-003",
+          "title": "Test ticket",
+          "description": "This is a test",
+          "priority": "low",
+          "status": "open",
+          "created_at": "2026-06-19T08:00:00Z"
+        },
+        "id": "a1b2c3d4"
+      }
+    },
+    "final_answer": "Successfully created ticket TKT-003 with low priority. The ticket is now open and ready for triage."
+  },
+  "metrics": {
+    "model_calls": 2,
+    "tool_calls": 1,
+    "iterations": 2
+  }
+}

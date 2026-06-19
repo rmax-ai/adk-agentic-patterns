@@ -1,0 +1,24 @@
+{
+  "pattern": "retry-fallback-recovery",
+  "scenario": "permanent_error",
+  "status": "succeeded",
+  "state_snapshot": {
+    "account_data": null,
+    "retry_count": 1,
+    "circuit_state": "closed",
+    "dead_letter": [
+      {
+        "account_id": "ACC-999",
+        "error_type": "permanent",
+        "attempts": 1,
+        "last_error": "Account not found: invalid account ID"
+      }
+    ]
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 0.0,
+    "iterations": 1.0
+  },
+  "failure_reason": null
+}

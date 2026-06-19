@@ -1,0 +1,18 @@
+{
+    "pattern": "agentic-rag",
+    "scenario": "unsupported_claim",
+    "status": "succeeded",
+    "description": "Query for 'ML framework' has no supporting documents",
+    "state_keys": {
+        "answer": "present",
+        "supported": "false",
+        "citations": "present_or_empty",
+        "unsupported_indicator": "true"
+    },
+    "expected_failure_indicators": [
+        "unsupported",
+        "cannot",
+        "not found",
+        "no evidence"
+    ]
+}
