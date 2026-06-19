@@ -1,0 +1,28 @@
+{
+  "status": "succeeded",
+  "output": {
+    "status": "success",
+    "operation": "working_memory",
+    "entry": {
+      "id": "wm_001",
+      "type": "working",
+      "content": "Current task: review pull request #142",
+      "confidence": 0.95,
+      "timestamp": 1000,
+      "ttl": 600.0
+    },
+    "retrieved": {
+      "id": "wm_001",
+      "type": "working",
+      "content": "Current task: review pull request #142",
+      "confidence": 0.95,
+      "timestamp": 1000,
+      "ttl": 600.0
+    }
+  },
+  "metrics": {
+    "model_calls": 2.0,
+    "tool_calls": 0.0,
+    "wall_clock_ms": 2.5
+  }
+}

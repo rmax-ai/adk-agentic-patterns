@@ -1,0 +1,25 @@
+{
+    "pattern": "human-approval-gate",
+    "scenario": "approved",
+    "status": "succeeded",
+    "output": {
+        "proposal": {
+            "proposal_id": "prop_001",
+            "amount": 150.0,
+            "reason": "Product arrived damaged",
+            "customer_id": "CUST-042",
+            "approval_status": "approved"
+        },
+        "approval_status": "approved",
+        "refund_result": {
+            "success": true,
+            "refund_id": "rfnd_001"
+        },
+        "final_answer": "Refund of $150.00 for customer CUST-042 has been approved and executed. Refund ID: rfnd_001."
+    },
+    "metrics": {
+        "model_calls": 2.0,
+        "tool_calls": 1.0,
+        "iterations": 2.0
+    }
+}

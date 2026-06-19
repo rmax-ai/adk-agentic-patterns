@@ -1,0 +1,49 @@
+{
+  "status": "succeeded",
+  "output": {
+    "conversation_context": {
+      "agent": "refund_specialist",
+      "status": "refund_handled"
+    },
+    "handoff_record": {
+      "request": {
+        "reason": "Customer is requesting a refund for an overcharge on invoice INV-001",
+        "context": {
+          "customer_id": "CUST-001",
+          "invoice_id": "INV-001",
+          "issue_type": "refund",
+          "request_text": "I was overcharged on my last invoice and need a refund."
+        },
+        "from_agent": "support",
+        "to_agent": "refund_specialist"
+      },
+      "response": {
+        "accepted": true,
+        "reason": "Refund specialist confirms eligibility and accepts the transfer"
+      }
+    },
+    "refund_result": {
+      "handoff_accepted": true,
+      "specialist": "refund_specialist",
+      "refund_info": {
+        "invoice_id": "INV-001",
+        "amount": 149.99,
+        "status": "paid",
+        "eligible": true,
+        "days_since_purchase": 5
+      },
+      "refund_result": {
+        "invoice_id": "INV-001",
+        "refund_amount": 149.99,
+        "status": "processed",
+        "estimated_credit_days": "3-5 business days"
+      },
+      "handoff_reason": "Customer is requesting a refund for an overcharge on invoice INV-001"
+    }
+  },
+  "metrics": {
+    "model_calls": 2,
+    "tool_calls": 2,
+    "iterations": 0
+  }
+}

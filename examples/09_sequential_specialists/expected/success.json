@@ -1,0 +1,41 @@
+{
+  "status": "succeeded",
+  "output": {
+    "extracted_claim": {
+      "claim_id": "CLM-2026-001",
+      "policy_number": "POL-AUTO-88723",
+      "claimant_name": "Jane Doe",
+      "incident_date": "2026-06-01",
+      "incident_type": "auto_accident",
+      "description": "Rear-end collision at intersection of Main St and 5th Ave. Minor damage to rear bumper. No injuries reported. Police report filed.",
+      "amount_claimed": 3500.0
+    },
+    "eligibility_result": {
+      "is_eligible": true,
+      "eligible_amount": 3500.0,
+      "reason": "Policy is active and in good standing. Collision coverage applies with a $500 deductible. Claim amount is within policy limits.",
+      "deductible": 500.0
+    },
+    "fraud_result": {
+      "is_suspicious": false,
+      "risk_score": 0.05,
+      "flags": [],
+      "recommendation": "approve"
+    },
+    "explanation": {
+      "summary": "Claim CLM-2026-001 (auto accident on June 1, 2026) has been reviewed and approved. The policy is active and collision coverage applies. After a $500 deductible, the net payment amount is $3,000.00.",
+      "coverage_details": "Collision coverage under policy POL-AUTO-88723. Coverage limit: $25,000. Deductible: $500. No exclusions apply to this incident type.",
+      "payment_amount": 3000.0,
+      "next_steps": [
+        "Schedule repair at an approved auto body shop",
+        "Submit repair estimate for pre-approval",
+        "Payment will be issued within 5 business days of estimate approval"
+      ]
+    }
+  },
+  "metrics": {
+    "model_calls": 4,
+    "tool_calls": 0,
+    "iterations": 0
+  }
+}

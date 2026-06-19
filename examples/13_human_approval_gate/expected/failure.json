@@ -1,0 +1,22 @@
+{
+    "pattern": "human-approval-gate",
+    "scenario": "rejected",
+    "status": "succeeded",
+    "output": {
+        "proposal": {
+            "proposal_id": "prop_001",
+            "amount": 150.0,
+            "reason": "Product arrived damaged",
+            "customer_id": "CUST-042",
+            "approval_status": "rejected"
+        },
+        "approval_status": "rejected",
+        "refund_result": null,
+        "final_answer": "The refund proposal for customer CUST-042 (amount $150.00) has been REJECTED by reviewer 'auto-rejecter'. The refund will not be executed."
+    },
+    "metrics": {
+        "model_calls": 2.0,
+        "tool_calls": 1.0,
+        "iterations": 2.0
+    }
+}

@@ -1,0 +1,43 @@
+{
+  "status": "succeeded",
+  "output": {
+    "conversation_context": {
+      "agent": "support",
+      "status": "handoff_fallback"
+    },
+    "handoff_record": {
+      "request": {
+        "reason": "Customer is requesting a refund for an overcharge on invoice INV-001",
+        "context": {
+          "customer_id": "CUST-001",
+          "invoice_id": "INV-001",
+          "issue_type": "refund",
+          "request_text": "I was overcharged on my last invoice and need a refund."
+        },
+        "from_agent": "support",
+        "to_agent": "refund_specialist"
+      },
+      "response": {
+        "accepted": false,
+        "reason": "Invoice INV-001 is outside the 30-day refund window — handoff rejected"
+      }
+    },
+    "refund_result": {
+      "handoff_accepted": false,
+      "fallback_agent": "support",
+      "rejection_reason": "Invoice INV-001 is outside the 30-day refund window — handoff rejected",
+      "escalation": {
+        "customer_id": "CUST-001",
+        "reason": "Refund handoff rejected: Invoice INV-001 is outside the 30-day refund window — handoff rejected",
+        "status": "escalated",
+        "priority": "high"
+      },
+      "handoff_reason": "Customer is requesting a refund for an overcharge on invoice INV-001"
+    }
+  },
+  "metrics": {
+    "model_calls": 2,
+    "tool_calls": 1,
+    "iterations": 0
+  }
+}

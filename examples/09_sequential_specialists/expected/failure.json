@@ -1,0 +1,26 @@
+{
+  "status": "succeeded",
+  "output": {
+    "extracted_claim": {
+      "claim_id": "CLM-2026-003",
+      "policy_number": "POL-AUTO-99999",
+      "claimant_name": "Bob Wilson",
+      "incident_date": "2026-06-15",
+      "incident_type": "auto_accident",
+      "description": "Single-vehicle collision with guardrail on Highway 101. Front-end damage. Driver reported no injuries.",
+      "amount_claimed": 12000.0
+    },
+    "eligibility_result": {
+      "is_eligible": false,
+      "eligible_amount": 0.0,
+      "reason": "Policy POL-AUTO-99999 was lapsed at the time of the incident. Premium payments were 45 days overdue. No coverage is available for this claim.",
+      "deductible": 0.0
+    }
+  },
+  "metrics": {
+    "model_calls": 2,
+    "tool_calls": 0,
+    "iterations": 0
+  },
+  "failure_reason": null
+}

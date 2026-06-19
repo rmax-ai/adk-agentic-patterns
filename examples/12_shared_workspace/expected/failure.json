@@ -1,0 +1,47 @@
+{
+  "pattern": "shared-workspace",
+  "scenario": "append_only",
+  "status": "succeeded",
+  "output": {
+    "evidence_board": {
+      "claim_001": {
+        "id": "claim_001",
+        "author": "researcher_01",
+        "text": "The Arctic sea ice extent has declined at an average rate of 13% per decade since 1979.",
+        "evidence": "NSIDC Sea Ice Index, Satellite observations 1979-2024",
+        "confidence": 0.92,
+        "status": "pending",
+        "version": 1
+      }
+    },
+    "synthesizer_output": {
+      "summary": "Overwrite test completed.",
+      "accepted_count": 0,
+      "claim_ids": []
+    }
+  },
+  "state_snapshot": {
+    "evidence_board": {
+      "claim_001": {
+        "id": "claim_001",
+        "author": "researcher_01",
+        "text": "The Arctic sea ice extent has declined at an average rate of 13% per decade since 1979.",
+        "evidence": "NSIDC Sea Ice Index, Satellite observations 1979-2024",
+        "confidence": 0.92,
+        "status": "pending",
+        "version": 1
+      }
+    },
+    "synthesizer_output": {
+      "summary": "Overwrite test completed.",
+      "accepted_count": 0,
+      "claim_ids": []
+    }
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 0.0,
+    "iterations": 0.0
+  },
+  "failure_reason": null
+}

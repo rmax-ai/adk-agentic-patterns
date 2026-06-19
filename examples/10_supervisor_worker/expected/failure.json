@@ -1,0 +1,42 @@
+{
+  "status": "failed",
+  "output": {
+    "task_ledger": {
+      "tasks": [
+        {
+          "id": "task-market",
+          "name": "Market Analysis",
+          "assignee": "worker_market",
+          "status": "failed",
+          "result": {
+            "error": "Recursive spawning blocked: workers cannot spawn sub-workers",
+            "reason": "bounded_delegation_enforced"
+          }
+        },
+        {
+          "id": "task-tech",
+          "name": "Technical Review",
+          "assignee": "worker_tech",
+          "status": "pending",
+          "result": {}
+        }
+      ]
+    },
+    "worker_registry": [
+      {"id": "worker_market", "capabilities": ["market_analysis", "competitor_intel", "pricing_review"]},
+      {"id": "worker_tech", "capabilities": ["technical_review", "security_audit", "performance_benchmark"]}
+    ],
+    "synthesis": {
+      "summary": "Synthesis deferred — not all tasks completed",
+      "task_count": 2,
+      "conclusions": {},
+      "status": "deferred"
+    }
+  },
+  "failure_reason": "Delegation depth exceeded maximum (1)",
+  "metrics": {
+    "model_calls": 1,
+    "tool_calls": 0,
+    "iterations": 0
+  }
+}

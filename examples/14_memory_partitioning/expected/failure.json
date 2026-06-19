@@ -1,0 +1,15 @@
+{
+  "status": "succeeded",
+  "output": {
+    "status": "success",
+    "operation": "memory_poisoning",
+    "low_confidence_rejected": true,
+    "moderate_confidence_accepted": true,
+    "entries_in_session": 1
+  },
+  "metrics": {
+    "model_calls": 1.0,
+    "tool_calls": 0.0,
+    "wall_clock_ms": 1.2
+  }
+}
