@@ -1,0 +1,31 @@
+{
+  "status": "partial",
+  "output": {
+    "draft": {
+      "title": "Migrate to PostgreSQL 16 — v4",
+      "sections": [
+        "Summary: Zero-downtime upgrade from PG14 to PG16 with automated rollback and full observability.",
+        "Impact: No user-facing downtime. Read replicas serve during cutover. Write buffers hold up to 60 s of traffic.",
+        "Migration Plan: Deploy PG16 standby → sync via logical replication → validate checksums → promote → redirect via load balancer.",
+        "Rollback Plan: Load balancer flips to old PG14 primary. Logical replication slot allows replay.",
+        "Risk Assessment: Low — tested in staging three times. Monitoring dashboards validated for lag and replication status."
+      ],
+      "author": "infra-team"
+    },
+    "scores": {
+      "clarity": 0.65,
+      "completeness": 0.60,
+      "feasibility": 0.70,
+      "risk": 0.55,
+      "overall": 0.63,
+      "feedback": [
+        "Summary: improved, metrics help. Add concrete benchmark targets.",
+        "Impact: migration plan present but lacks validation steps.",
+        "Migration Plan: clear steps, add data validation and monitoring."
+      ]
+    },
+    "iterations": 4,
+    "status": "max_iterations"
+  },
+  "failure_reason": "Max iterations (4) reached. Best score: 0.63"
+}

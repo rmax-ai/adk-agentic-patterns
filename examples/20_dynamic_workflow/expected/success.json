@@ -1,0 +1,27 @@
+{
+    "pattern": "dynamic-workflow",
+    "scenario": "schema_violation",
+    "status": "succeeded",
+    "output": {
+        "incident_type": "schema_violation",
+        "classification": {
+            "incident_type": "schema_violation",
+            "confidence": 0.95,
+            "description": "User profile table has rows violating NOT NULL constraint on email field"
+        },
+        "resolution": {
+            "branch": "validate_schema",
+            "action": "constraint_validation",
+            "constraints_checked": ["NOT_NULL", "UNIQUE", "FOREIGN_KEY", "DATA_TYPE"],
+            "violations_found": 12,
+            "severity": "high",
+            "remediation": "Patch the ETL job to handle NULL values, then run a backfill query to set default values for existing NULL rows.",
+            "completed_at": "2026-06-19T12:00:00+00:00"
+        }
+    },
+    "metrics": {
+        "model_calls": 1.0,
+        "tool_calls": 0.0,
+        "iterations": 2.0
+    }
+}

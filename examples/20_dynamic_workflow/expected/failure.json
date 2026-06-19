@@ -1,0 +1,31 @@
+{
+    "pattern": "dynamic-workflow",
+    "scenario": "unknown",
+    "status": "succeeded",
+    "output": {
+        "incident_type": "unknown",
+        "classification": {
+            "incident_type": "unknown",
+            "confidence": 0.45,
+            "description": "Unusual pattern detected but cannot classify with available data"
+        },
+        "resolution": {
+            "branch": "escalate_to_analyst",
+            "action": "human_escalation",
+            "escalation_level": "senior_data_analyst",
+            "required_investigation": [
+                "Review clickstream anomaly patterns",
+                "Cross-reference with known incident signatures",
+                "Check for upstream data source changes"
+            ],
+            "severity": "low",
+            "remediation": "Ticket created for senior analyst review. Escalation includes full incident context and raw data samples.",
+            "completed_at": "2026-06-19T12:00:00+00:00"
+        }
+    },
+    "metrics": {
+        "model_calls": 1.0,
+        "tool_calls": 0.0,
+        "iterations": 2.0
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "status": "budget_exhausted",
+  "pattern": "bounded-loop-agent",
+  "scenario": "budget_exhausted",
+  "output": {
+    "draft": {
+      "sections": {
+        "executive_summary": "This report covers the compliance audit results.",
+        "methodology": "Risk-based approach used."
+      },
+      "complete": false,
+      "issues": [
+        "findings section is missing",
+        "recommendations section is missing",
+        "signatures section is missing"
+      ]
+    },
+    "missing_sections": [
+      "findings",
+      "recommendations",
+      "signatures"
+    ],
+    "iteration": 3,
+    "status": "BUDGET_EXHAUSTED"
+  },
+  "metrics": {
+    "model_calls": 6.0,
+    "tool_calls": 0.0,
+    "iterations": 3.0
+  },
+  "failure_reason": "Budget exhausted after 3 iterations"
+}

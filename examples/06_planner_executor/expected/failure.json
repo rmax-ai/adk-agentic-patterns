@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "output": null,
+  "metrics": {
+    "model_calls": 1,
+    "tool_calls": 0,
+    "iterations": 1
+  },
+  "failure_reason": "Plan validation failed: Duplicate task IDs found in plan"
+}

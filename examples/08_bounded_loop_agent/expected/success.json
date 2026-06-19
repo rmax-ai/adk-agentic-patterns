@@ -1,0 +1,26 @@
+{
+  "status": "succeeded",
+  "pattern": "bounded-loop-agent",
+  "scenario": "converges",
+  "output": {
+    "draft": {
+      "sections": {
+        "executive_summary": "This report covers the compliance audit results for Q2 2026.",
+        "methodology": "We used a risk-based approach to assess controls across all domains.",
+        "findings": "Three critical findings were identified: missing MFA on admin accounts, outdated TLS certificates, and lack of audit logging.",
+        "recommendations": "1. Enforce MFA on all admin accounts within 30 days. 2. Update TLS certificates before expiry. 3. Implement centralized audit logging.",
+        "signatures": "Approved by: John Doe (CISO), Jane Smith (Audit Lead), Date: 2026-06-20"
+      },
+      "complete": true,
+      "issues": []
+    },
+    "missing_sections": [],
+    "iteration": 2,
+    "status": "PASSED"
+  },
+  "metrics": {
+    "model_calls": 6.0,
+    "tool_calls": 0.0,
+    "iterations": 3.0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "status": "succeeded",
+  "output": {
+    "draft": {
+      "title": "Migrate to PostgreSQL 16 — v3",
+      "sections": [
+        "Summary: Database version upgrade delivering 20% faster queries, native JSON, and improved vacuum performance.",
+        "Impact: 5 min read-only window. Write queues buffer automatically. Rollback is a DNS flip to the old primary.",
+        "Migration Plan: Build PG16 replica \u2192 replay WAL \u2192 validate data \u2192 promote standby \u2192 switch DNS \u2192 decommission old primary.",
+        "Rollback Plan: Flip DNS back to PG14 primary. Write queues drain naturally. Total RPO < 1 s."
+      ],
+      "author": "infra-team"
+    },
+    "scores": {
+      "clarity": 0.85,
+      "completeness": 0.80,
+      "feasibility": 0.84,
+      "risk": 0.78,
+      "overall": 0.82,
+      "feedback": [
+        "Summary: well structured with clear metrics. Consider including cost estimate.",
+        "Impact: comprehensive. Rollback plan present.",
+        "Migration Plan: thorough with validation. Add monitoring checkpoints.",
+        "Rollback Plan: good. Add RPO/RTO targets explicitly."
+      ]
+    },
+    "iterations": 3,
+    "status": "converged"
+  },
+  "metrics": {
+    "model_calls": 6.0,
+    "tool_calls": 0.0,
+    "iterations": 3.0
+  }
+}

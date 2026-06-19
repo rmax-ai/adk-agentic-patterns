@@ -1,0 +1,26 @@
+{
+  "status": "budget_exhausted",
+  "output": {
+    "observations": [
+      "Metric cpu_usage for api-gateway: 89.5 % (healthy: false)",
+      "Metric memory_usage for api-gateway: 76.2 % (healthy: true)",
+      "Metric error_rate for api-gateway: 12.3 % (healthy: false)",
+      "Metric latency_p99 for api-gateway: 2450.0 ms (healthy: false)",
+      "Metric request_rate for api-gateway: 1520.0 req/s (healthy: true)"
+    ],
+    "actions": [
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "cpu_usage"}, "repeated": false},
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "memory_usage"}, "repeated": false},
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "error_rate"}, "repeated": false},
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "latency_p99"}, "repeated": false},
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "request_rate"}, "repeated": false}
+    ],
+    "diagnosis": null,
+    "termination_reason": "budget_exhausted"
+  },
+  "metrics": {
+    "model_calls": 6,
+    "tool_calls": 5,
+    "iterations": 6
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "status": "succeeded",
+  "output": {
+    "execution_plan": {
+      "tasks": [
+        {"id": "task-1", "name": "Check venue availability", "deps": [], "status": "completed", "tool_name": "check_availability", "tool_args": {"venue_id": "venue-001"}},
+        {"id": "task-2", "name": "Book the venue", "deps": ["task-1"], "status": "completed", "tool_name": "book_venue", "tool_args": {"venue_id": "venue-001"}},
+        {"id": "task-3", "name": "Order catering", "deps": ["task-2"], "status": "completed", "tool_name": "order_catering", "tool_args": {"venue_id": "venue-001", "attendees": 100}},
+        {"id": "task-4", "name": "Schedule conference event", "deps": ["task-2"], "status": "completed", "tool_name": "schedule_event", "tool_args": {"title": "Annual Tech Conference", "date": "2026-07-15", "venue_id": "venue-001"}}
+      ],
+      "metadata": {"conference_name": "Annual Tech Conference", "date": "2026-07-15", "attendees": 100}
+    },
+    "task_results": {
+      "task-1": {"venue_id": "venue-001", "name": "Grand Ballroom", "capacity": 300, "available": true},
+      "task-2": {"venue_id": "venue-001", "success": true, "status": "booked", "venue_name": "Grand Ballroom"},
+      "task-3": {"order_id": "cater-001", "venue_id": "venue-001", "attendees": 100, "status": "confirmed"},
+      "task-4": {"event_id": "evt-001", "title": "Annual Tech Conference", "date": "2026-07-15", "venue_id": "venue-001", "status": "scheduled"}
+    },
+    "replan_count": 0
+  },
+  "metrics": {
+    "model_calls": 5,
+    "tool_calls": 4,
+    "iterations": 1
+  }
+}

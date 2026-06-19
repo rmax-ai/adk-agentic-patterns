@@ -1,0 +1,24 @@
+{
+  "status": "succeeded",
+  "output": {
+    "observations": [
+      "Metric error_rate for api-gateway: 12.3 % (healthy: false)",
+      "Logs for api-gateway: 209 errors in timeframe",
+      "Deployment history for api-gateway: 2 deployments, 3 recent changes",
+      "Diagnosis submitted: API Gateway is experiencing elevated error rates due to ..."
+    ],
+    "actions": [
+      {"tool": "query_metrics", "arguments": {"service": "api-gateway", "metric": "error_rate"}, "repeated": false},
+      {"tool": "query_logs", "arguments": {"service": "api-gateway", "timeframe": "last_15m"}, "repeated": false},
+      {"tool": "get_deployment_history", "arguments": {"service": "api-gateway"}, "repeated": false},
+      {"tool": "submit_diagnosis", "arguments": {"diagnosis": "API Gateway is experiencing elevated error rates due to a recent deployment", "root_cause": "v2.4.1 deployment updated rate limiting config causing upstream timeouts"}, "repeated": false}
+    ],
+    "diagnosis": "API Gateway is experiencing elevated error rates due to a recent deployment",
+    "termination_reason": "diagnosis_submitted"
+  },
+  "metrics": {
+    "model_calls": 5,
+    "tool_calls": 4,
+    "iterations": 5
+  }
+}
