@@ -1,0 +1,13 @@
+{
+  "status": "succeeded",
+  "output": {
+    "category": "billing",
+    "confidence": 0.95,
+    "reasoning": "Customer mentions charges"
+  },
+  "metrics": {
+    "model_calls": 1,
+    "tool_calls": 0,
+    "iterations": 0
+  }
+}

@@ -1,0 +1,98 @@
+[project]
+name = "adk-agentic-patterns"
+version = "0.1.0"
+description = "Executable catalogue of agentic design patterns using Google ADK"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.12"
+authors = [
+    {name = "Max Espinoza", email = "me@rmax.io"}
+]
+keywords = ["google-adk", "agentic-patterns", "ai-agents", "agent-architecture"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+    "google-adk>=2.0.0",
+    "google-genai>=1.0.0",
+    "pydantic>=2.0.0",
+    "structlog>=24.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.8.0",
+    "mypy>=1.14.0",
+    "pytest-cov>=6.0.0",
+    "pytest-xdist>=3.6.0",
+]
+
+[project.scripts]
+adk-patterns = "adk_patterns.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/adk_patterns"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["examples/*"]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "I", "N", "W",
+    "UP", "B", "SIM", "C4", "RUF",
+    "TCH", "ARG", "DTZ",
+]
+ignore = [
+    "RUF001",  # ambiguous characters in strings
+    "E501",    # line too long (handled by formatter)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+mypy_path = "src"
+packages = ["adk_patterns"]
+exclude = [
+    "^examples/",
+    "^tests/",
+]
+[[tool.mypy.overrides]]
+module = [
+    "structlog.*",
+    "google.adk.*",
+    "google.genai.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"
+markers = [
+    "offline: Tests that run without live model credentials",
+    "live: Tests that require live model credentials (skipped by default)",
+    "slow: Tests that take longer than 5 seconds",
+]
+
+[tool.coverage.run]
+source = ["src/adk_patterns"]
+omit = ["src/adk_patterns/cli.py"]
