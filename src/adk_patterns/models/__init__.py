@@ -186,7 +186,7 @@ class ScriptedModel:
         self,
         system_instruction: str = "",
         messages: list[dict[str, Any]] | None = None,
-        _tools: list[dict[str, Any]] | None = None,
+        tools: list[dict[str, Any]] | None = None,  # noqa: ARG002
         _response_schema: type | dict[str, Any] | None = None,
     ) -> ModelResponse:
         """Invoke the scripted model.
