@@ -1,5 +1,6 @@
 <script>
   import { base } from "$app/paths";
+  import "prismjs/themes/prism-tomorrow.css";
 </script>
 
 <nav class="border-b border-slate-800 px-6 py-4 flex items-center gap-6">
