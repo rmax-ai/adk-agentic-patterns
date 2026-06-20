@@ -42,7 +42,9 @@ class MockVectorStore:
     def add_poisoned(self, doc_id: str) -> None:
         self._poisoned.add(doc_id)
 
-    def search(self, query: str, top_k: int = 5, min_score: float = 0.0) -> list[VectorSearchResult]:
+    def search(
+        self, query: str, top_k: int = 5, min_score: float = 0.0
+    ) -> list[VectorSearchResult]:
         if query in self._scores:
             scored = self._scores[query]
         else:
@@ -60,15 +62,17 @@ class MockVectorStore:
         for doc_id, score in sorted(scored.items(), key=lambda x: -x[1]):
             if score < min_score:
                 continue
-            doc = self._docs.get(doc_id)
-            if not doc:
+            found = self._docs.get(doc_id)
+            if found is None:
                 continue
-            results.append(VectorSearchResult(
-                doc_id=doc_id,
-                content=doc.content,
-                score=score,
-                metadata=doc.metadata,
-            ))
+            results.append(
+                VectorSearchResult(
+                    doc_id=doc_id,
+                    content=found.content,
+                    score=score,
+                    metadata=found.metadata,
+                )
+            )
             if len(results) >= top_k:
                 break
         return results

@@ -7,11 +7,11 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
 
 
-class ExecutionMode(str, Enum):
+class ExecutionMode(StrEnum):
     OFFLINE = "offline"
     LIVE = "live"
 
@@ -31,7 +31,9 @@ class Config:
 
     # Project paths
     project_root: Path = field(default_factory=lambda: Path(__file__).resolve().parents[2])
-    examples_dir: Path = field(default_factory=lambda: Path(__file__).resolve().parents[2] / "examples")
+    examples_dir: Path = field(
+        default_factory=lambda: Path(__file__).resolve().parents[2] / "examples"
+    )
 
     @classmethod
     def from_env(cls) -> Config:

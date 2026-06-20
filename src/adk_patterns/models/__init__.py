@@ -7,8 +7,12 @@ LLM interface compatible with ADK's model integration points.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
 from dataclasses import dataclass, field
-from typing import Any, Callable
 
 import structlog
 
@@ -113,7 +117,7 @@ class ScriptedModel:
         """Make ALL subsequent calls raise the given exception."""
         self._repeat_response = None
         self._response_sequence = []
-        self._error_on_call = {i: error for i in range(100)}
+        self._error_on_call = dict.fromkeys(range(100), error)
 
     # -- Latency simulation --
 
@@ -182,8 +186,8 @@ class ScriptedModel:
         self,
         system_instruction: str = "",
         messages: list[dict[str, Any]] | None = None,
-        tools: list[dict[str, Any]] | None = None,
-        response_schema: type | dict[str, Any] | None = None,
+        _tools: list[dict[str, Any]] | None = None,
+        _response_schema: type | dict[str, Any] | None = None,
     ) -> ModelResponse:
         """Invoke the scripted model.
 
@@ -241,7 +245,7 @@ class ScriptedModel:
 
     # -- ADK integration helpers --
 
-    def as_adk_model_callback(self) -> Callable:
+    def as_adk_model_callback(self) -> Callable[..., Any]:
         """Return a before_model_callback suitable for ADK LlmAgent.
 
         This callback intercepts model calls and returns the scripted response,
@@ -250,7 +254,7 @@ class ScriptedModel:
         """
 
         async def callback(
-            context: Any,  # adk.agents.Context
+            _context: Any,  # adk.agents.Context
             llm_request: Any,  # adk.models.LlmRequest
         ) -> Any | None:
             from google.adk.models.llm_response import LlmResponse
@@ -261,7 +265,9 @@ class ScriptedModel:
                     if hasattr(c, "parts"):
                         for p in c.parts:
                             if hasattr(p, "text") and p.text:
-                                messages_raw.append({"role": getattr(c, "role", "user"), "content": p.text})
+                                messages_raw.append(
+                                    {"role": getattr(c, "role", "user"), "content": p.text}
+                                )
 
             try:
                 response = self.invoke(
@@ -279,6 +285,7 @@ class ScriptedModel:
                     parts.append(Part(text=response.text))
                 if response.structured_output:
                     import json
+
                     parts.append(Part(text=json.dumps(response.structured_output)))
 
                 llm_response = LlmResponse(
@@ -287,9 +294,9 @@ class ScriptedModel:
                 return llm_response
 
             except Exception as e:
-                invocation = self._invocations[-1] if self._invocations else None
-                if invocation:
-                    invocation.error = str(e)
+                failed_invocation = self._invocations[-1] if self._invocations else None
+                if failed_invocation:
+                    failed_invocation.error = str(e)
                 raise
 
         return callback
@@ -298,7 +305,9 @@ class ScriptedModel:
 # -- Convenience factories --
 
 
-def text_response(text: str, prompt_tokens: int = 100, completion_tokens: int = 50) -> ModelResponse:
+def text_response(
+    text: str, prompt_tokens: int = 100, completion_tokens: int = 50
+) -> ModelResponse:
     """Create a simple text response."""
     return ModelResponse(
         text=text,

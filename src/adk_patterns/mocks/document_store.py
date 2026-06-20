@@ -61,22 +61,26 @@ class MockDocumentStore:
             for doc_id, doc in self._docs.items():
                 score = sum(1 for word in query_lower.split() if word in doc.content.lower())
                 if score > 0:
-                    scored[doc_id] = min(score / max(len(query_lower.split()), 1), 1.0)
+                    scored[doc_id] = float(min(score / max(len(query_lower.split()), 1), 1.0))
 
         results = []
-        for doc_id, score in sorted(scored.items(), key=lambda x: -x[1]):
-            doc = self._docs.get(doc_id)
-            if not doc or score < min_score:
+        for doc_id, float_score in sorted(scored.items(), key=lambda x: -x[1]):
+            if float_score < min_score:
                 continue
-            if access_tags and not any(t in doc.access_tags for t in access_tags):
+            found = self._docs.get(doc_id)
+            if found is None:
                 continue
-            results.append(SearchResult(
-                doc_id=doc_id,
-                content=doc.content,
-                score=score,
-                citation_id=f"cite:{doc_id}",
-                metadata=doc.metadata,
-            ))
+            if access_tags and not any(t in found.access_tags for t in access_tags):
+                continue
+            results.append(
+                SearchResult(
+                    doc_id=doc_id,
+                    content=found.content,
+                    score=float_score,
+                    citation_id=f"cite:{doc_id}",
+                    metadata=found.metadata,
+                )
+            )
             if len(results) >= top_k:
                 break
 

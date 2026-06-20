@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 
-class PaymentStatus(str, Enum):
+class PaymentStatus(StrEnum):
     PENDING = "pending"
     AUTHORIZED = "authorized"
     CAPTURED = "captured"
@@ -53,7 +53,9 @@ class MockPaymentService:
         """Make the next call to `operation` fail."""
         self._fail_next = operation
 
-    def authorize(self, payment_id: str, amount: float, idempotency_key: str | None = None) -> Payment:
+    def authorize(
+        self, payment_id: str, amount: float, idempotency_key: str | None = None
+    ) -> Payment:
         self._check_idempotency(idempotency_key)
         self._check_failure("authorize")
         payment = Payment(payment_id=payment_id, amount=amount, status=PaymentStatus.AUTHORIZED)
@@ -72,7 +74,7 @@ class MockPaymentService:
         payment.status = PaymentStatus.CAPTURED
         return payment
 
-    def refund(self, payment_id: str, amount: float | None = None) -> Payment:
+    def refund(self, payment_id: str, _amount: float | None = None) -> Payment:
         self._check_failure("refund")
         payment = self._payments.get(payment_id)
         if not payment:

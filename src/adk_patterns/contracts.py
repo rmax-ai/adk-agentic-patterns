@@ -6,14 +6,14 @@ No unchecked natural-language arguments are passed directly into side-effecting 
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
-from enum import Enum
+from datetime import UTC, datetime
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field
 
 
-class ExecutionStatus(str, Enum):
+class ExecutionStatus(StrEnum):
     """Terminal status of a pattern run."""
 
     SUCCEEDED = "succeeded"
@@ -47,7 +47,7 @@ class AuditEvent(BaseModel):
     action: str = Field(description="Action performed (e.g., tool_call, model_call, state_write)")
     resource: str | None = Field(default=None, description="Resource acted upon")
     timestamp: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         description="When the event occurred",
     )
     outcome: str = Field(description="Result: success, failure, rejected, etc.")

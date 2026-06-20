@@ -8,8 +8,12 @@ from __future__ import annotations
 
 import json
 import uuid
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
 from dataclasses import dataclass, field
-from typing import Any, Callable
 
 
 @dataclass
@@ -64,12 +68,14 @@ class MockMCPServer:
         for name, tool in self._tools.items():
             if self._allowlist is not None and name not in self._allowlist:
                 continue
-            tools.append({
-                "name": tool.name,
-                "description": tool.description,
-                "inputSchema": tool.input_schema,
-                "version": tool.version,
-            })
+            tools.append(
+                {
+                    "name": tool.name,
+                    "description": tool.description,
+                    "inputSchema": tool.input_schema,
+                    "version": tool.version,
+                }
+            )
         return tools
 
     def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
@@ -99,23 +105,31 @@ class MockMCPServer:
         try:
             request = json.loads(request_json)
         except json.JSONDecodeError:
-            return json.dumps({"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error"}, "id": None})
+            return json.dumps(
+                {"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error"}, "id": None}
+            )
 
         method = request.get("method", "")
         req_id = request.get("id")
 
         if method == "tools/list":
-            result = self.list_tools()
-            return json.dumps({"jsonrpc": "2.0", "result": result, "id": req_id})
+            tools_result = self.list_tools()
+            return json.dumps({"jsonrpc": "2.0", "result": tools_result, "id": req_id})
 
         elif method == "tools/call":
             params = request.get("params", {})
-            result = self.call_tool(params.get("name", ""), params.get("arguments", {}))
-            if "error" in result:
-                return json.dumps({"jsonrpc": "2.0", "error": result, "id": req_id})
-            return json.dumps({"jsonrpc": "2.0", "result": result["result"], "id": req_id})
+            call_result = self.call_tool(params.get("name", ""), params.get("arguments", {}))
+            if "error" in call_result:
+                return json.dumps({"jsonrpc": "2.0", "error": call_result, "id": req_id})
+            return json.dumps({"jsonrpc": "2.0", "result": call_result["result"], "id": req_id})
 
-        return json.dumps({"jsonrpc": "2.0", "error": {"code": -32601, "message": f"Unknown method: {method}"}, "id": req_id})
+        return json.dumps(
+            {
+                "jsonrpc": "2.0",
+                "error": {"code": -32601, "message": f"Unknown method: {method}"},
+                "id": req_id,
+            }
+        )
 
     def reset(self) -> None:
         self._tools.clear()

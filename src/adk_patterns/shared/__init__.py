@@ -7,9 +7,13 @@ from __future__ import annotations
 
 import time
 import uuid
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
+
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from typing import Any
 
 import structlog
 
@@ -144,7 +148,9 @@ class RunContext:
 
 
 @contextmanager
-def run_scope(pattern: str, scenario: str = "default", **budget_kwargs: Any):
+def run_scope(
+    pattern: str, scenario: str = "default", **budget_kwargs: Any
+) -> Generator[Any, Any, Any]:
     """Context manager for a pattern run with automatic budget checking."""
     ctx = RunContext(
         pattern=pattern,
@@ -158,7 +164,7 @@ def run_scope(pattern: str, scenario: str = "default", **budget_kwargs: Any):
         logger.exception("run_failed", pattern=pattern, scenario=scenario)
     if ctx.status == ExecutionStatus.BUDGET_EXHAUSTED:
         logger.warning("budget_exhausted", pattern=pattern, reason=ctx.failure_reason)
-    return ctx  # type: ignore[return-value]
+    return ctx
 
 
 # -- Retry utilities --------------------------------------------------------
@@ -178,7 +184,9 @@ class RetryConfig:
 
 def compute_backoff(attempt: int, config: RetryConfig) -> float:
     """Compute backoff delay for a given attempt."""
-    delay = min(config.base_delay_ms * (config.backoff_multiplier ** (attempt - 1)), config.max_delay_ms)
+    delay = min(
+        config.base_delay_ms * (config.backoff_multiplier ** (attempt - 1)), config.max_delay_ms
+    )
     return delay + config.jitter_ms
 
 

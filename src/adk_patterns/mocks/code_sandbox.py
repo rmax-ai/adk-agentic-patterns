@@ -30,7 +30,7 @@ class MockCodeSandbox:
     def register(self, key: str, result: SandboxResult) -> None:
         self._fixtures[key] = result
 
-    def execute(self, code: str, language: str = "python") -> SandboxResult:
+    def execute(self, code: str, _language: str = "python") -> SandboxResult:
         """Return a predefined fixture result. Does not actually execute code."""
         if self._timeout:
             self._timeout = False

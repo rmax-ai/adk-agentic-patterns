@@ -16,7 +16,6 @@ import importlib
 import json
 import sys
 import time
-from pathlib import Path
 from typing import Any
 
 from adk_patterns.config import Config
@@ -66,7 +65,9 @@ def cmd_describe(config: Config, pattern_name: str) -> int:
         print(f"  Resumable: {pattern.resumability}")
         print(f"\n  ✓ Use for: {', '.join(pattern.recommended_use_cases)}")
         print(f"  ✗ Avoid for: {', '.join(pattern.reasons_not_to_use)}")
-        print(f"  Related: {', '.join(pattern.related_patterns) if pattern.related_patterns else 'none'}")
+        print(
+            f"  Related: {', '.join(pattern.related_patterns) if pattern.related_patterns else 'none'}"
+        )
     return 0
 
 
@@ -88,7 +89,7 @@ def cmd_run(
         module = importlib.import_module(f"examples.{pattern_name.replace('-', '_')}.run")
     except ImportError as e:
         print(f"Cannot load pattern '{pattern_name}': {e}", file=sys.stderr)
-        print(f"Pattern may not be implemented yet.", file=sys.stderr)
+        print("Pattern may not be implemented yet.", file=sys.stderr)
         return 1
 
     if not hasattr(module, "main"):
@@ -96,7 +97,7 @@ def cmd_run(
         return 1
 
     start = time.monotonic()
-    result = module.main(config=config, scenario=scenario)  # type: ignore[call-arg]
+    result = module.main(config=config, scenario=scenario)
     elapsed = time.monotonic() - start
 
     if config.json_output:
@@ -109,11 +110,15 @@ def cmd_run(
         print(f"  Mode: {config.execution_mode.value}  |  Wall time: {elapsed:.2f}s")
 
         if hasattr(result, "metrics"):
-            m: dict[str, Any] = result.metrics  # type: ignore[union-attr]
-            print(f"  Model calls: {m.get('model_calls', '?')}  |  Tool calls: {m.get('tool_calls', '?')}")
-            print(f"  Iterations: {m.get('iterations', '?')}  |  Tokens: {m.get('synthetic_tokens', '?')}")
+            m: dict[str, Any] = result.metrics
+            print(
+                f"  Model calls: {m.get('model_calls', '?')}  |  Tool calls: {m.get('tool_calls', '?')}"
+            )
+            print(
+                f"  Iterations: {m.get('iterations', '?')}  |  Tokens: {m.get('synthetic_tokens', '?')}"
+            )
 
-        failure_reason: str | None = getattr(result, "failure_reason", None)  # type: ignore[union-attr]
+        failure_reason: str | None = getattr(result, "failure_reason", None)
         if failure_reason:
             print(f"  Failure: {failure_reason}")
     return 0
@@ -143,17 +148,23 @@ def cmd_compare(config: Config, pattern_a: str, pattern_b: str) -> int:
     ]
 
     if config.json_output:
-        print(json.dumps({
-            "pattern_a": a.model_dump(),
-            "pattern_b": b.model_dump(),
-        }, indent=2, default=str))
+        print(
+            json.dumps(
+                {
+                    "pattern_a": a.model_dump(),
+                    "pattern_b": b.model_dump(),
+                },
+                indent=2,
+                default=str,
+            )
+        )
     else:
         print(f"\n  {'Dimension':<25} {a.display_name:<20} {b.display_name:<20}")
-        print(f"  {'-'*25} {'-'*20} {'-'*20}")
+        print(f"  {'-' * 25} {'-' * 20} {'-' * 20}")
         for label, attr in dims:
             va = getattr(a, attr)
             vb = getattr(b, attr)
-            print(f"  {label:<25} {str(va):<20} {str(vb):<20}")
+            print(f"  {label:<25} {va!s:<20} {vb!s:<20}")
         print(f"\n  {a.display_name}: {a.latency} latency, {a.token_consumption} tokens")
         print(f"  {b.display_name}: {b.latency} latency, {b.token_consumption} tokens")
     return 0
@@ -163,15 +174,21 @@ def cmd_matrix(config: Config) -> int:
     """Generate the pattern comparison matrix."""
     patterns = list_all()
     dims = [
-        "determinism", "adaptability", "state_complexity",
-        "coordination_complexity", "testability", "failure_containment",
-        "security_isolation", "human_controllability", "operational_burden",
+        "determinism",
+        "adaptability",
+        "state_complexity",
+        "coordination_complexity",
+        "testability",
+        "failure_containment",
+        "security_isolation",
+        "human_controllability",
+        "operational_burden",
     ]
 
     if config.json_output:
         rows = []
         for p in patterns:
-            row = {"name": p.name, "display_name": p.display_name}
+            row: dict[str, object] = {"name": p.name, "display_name": p.display_name}
             for d in dims:
                 row[d] = getattr(p, d)
             row["latency"] = p.latency
@@ -180,8 +197,10 @@ def cmd_matrix(config: Config) -> int:
             rows.append(row)
         print(json.dumps(rows, indent=2))
     else:
-        print(f"\n  {'Pattern':<30} {'Det':>3} {'Adp':>3} {'StC':>3} {'CoC':>3} {'Tst':>3} {'FaC':>3} {'Sec':>3} {'HuC':>3} {'OpB':>3}")
-        print(f"  {'-'*30} {'---'*9}")
+        print(
+            f"\n  {'Pattern':<30} {'Det':>3} {'Adp':>3} {'StC':>3} {'CoC':>3} {'Tst':>3} {'FaC':>3} {'Sec':>3} {'HuC':>3} {'OpB':>3}"
+        )
+        print(f"  {'-' * 30} {'---' * 9}")
         for p in patterns:
             print(
                 f"  {p.name:<30} "
@@ -208,7 +227,9 @@ def main() -> int:
     run = sub.add_parser("run", help="Run a pattern")
     run.add_argument("pattern", help="Pattern name")
     run.add_argument("--scenario", default="default", help="Scenario name")
-    run.add_argument("--execution-mode", choices=["offline", "live"], help="Execution mode override")
+    run.add_argument(
+        "--execution-mode", choices=["offline", "live"], help="Execution mode override"
+    )
 
     sub.add_parser("run-all", help="Run all patterns")
 

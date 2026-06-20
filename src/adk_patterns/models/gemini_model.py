@@ -5,9 +5,11 @@ Only loaded when PATTERNS_EXECUTION_MODE=live and GOOGLE_API_KEY is set.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-from adk_patterns.config import Config
+if TYPE_CHECKING:
+    from adk_patterns.config import Config
+
 from adk_patterns.errors import ModelError
 
 
@@ -27,11 +29,10 @@ class GeminiAdapter:
         if self._client is None:
             try:
                 from google import genai
+
                 self._client = genai.Client(api_key=self.config.google_api_key)
-            except ImportError:
-                raise ModelError(
-                    "google-genai not installed. Run: uv sync"
-                )
+            except ImportError as err:
+                raise ModelError("google-genai not installed. Run: uv sync") from err
         return self._client
 
     def get_model_name(self) -> str:

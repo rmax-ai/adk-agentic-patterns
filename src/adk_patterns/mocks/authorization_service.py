@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 
-class AuthzVerdict(str, Enum):
+class AuthzVerdict(StrEnum):
     ALLOW = "allow"
     DENY = "deny"
 
@@ -45,12 +45,14 @@ class MockAuthorizationService:
         resource: str,
         verdict: AuthzVerdict = AuthzVerdict.ALLOW,
     ) -> None:
-        self._rules.append({
-            "principal": principal,
-            "action": action,
-            "resource": resource,
-            "verdict": verdict,
-        })
+        self._rules.append(
+            {
+                "principal": principal,
+                "action": action,
+                "resource": resource,
+                "verdict": verdict,
+            }
+        )
 
     def allow_all(self) -> None:
         self._default_verdict = AuthzVerdict.ALLOW

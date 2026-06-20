@@ -5,8 +5,6 @@ Avoids time.sleep in tests. All patterns use this for timing control.
 
 from __future__ import annotations
 
-import time
-
 
 class MockClock:
     """Deterministic clock for testing.

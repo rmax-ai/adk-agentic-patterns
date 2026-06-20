@@ -32,11 +32,13 @@ class Span:
         self.status = status
 
     def add_event(self, name: str, attributes: dict[str, Any] | None = None) -> None:
-        self.events.append({
-            "name": name,
-            "timestamp": time.monotonic(),
-            "attributes": attributes or {},
-        })
+        self.events.append(
+            {
+                "name": name,
+                "timestamp": time.monotonic(),
+                "attributes": attributes or {},
+            }
+        )
 
     @property
     def duration_ms(self) -> float:
@@ -152,11 +154,7 @@ def evaluate_schema_validity(trace: Trace, expected_valid: bool = True) -> dict[
 
 def evaluate_forbidden_tool_usage(trace: Trace, forbidden: list[str]) -> dict[str, Any]:
     """Check that no forbidden tools were called."""
-    tool_names = [
-        s.attributes.get("tool_name", "")
-        for s in trace.spans
-        if s.kind == "TOOL_CALL"
-    ]
+    tool_names = [s.attributes.get("tool_name", "") for s in trace.spans if s.kind == "TOOL_CALL"]
     violations = [t for t in tool_names if t in forbidden]
     return {
         "metric": "forbidden_tool_usage",
